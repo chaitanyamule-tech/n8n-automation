@@ -20,4 +20,8 @@ that the email arrived in the inbox.
 - Configured email credentials
 
 ## Security
-Never upload passwords, API keys, or tokens.
+-Never upload passwords, API keys, or tokens.
+
+
+
+<img width="1666" height="1032" alt="image" src="https://github.com/user-attachments/assets/f1a4f75c-8821-4f19-afef-6c4ea1d2d6cc" />
