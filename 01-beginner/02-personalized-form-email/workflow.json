@@ -1,0 +1,85 @@
+{
+  "name": "Personalized Form Email",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Welcome Email Registration",
+        "formDescription": "Enter your name and email to receive a personalized welcome email.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Enter Your Name:",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Enter Your Email :",
+              "fieldType": "email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        0,
+        0
+      ],
+      "id": "28ffffca-336d-4acf-8ac4-6225f72e8639",
+      "name": "On form submission",
+      "webhookId": "85a410ea-a644-4e52-b278-ad8d66816678"
+    },
+    {
+      "parameters": {
+        "fromEmail": "=cmule875@gmail.com",
+        "toEmail": "={{ $json[\"Enter Your Email :\"] }}",
+        "subject": "Welcome to Our Community!",
+        "emailFormat": "text",
+        "text": "=Hi {{ $json[\"Enter Your Name:\"] }},\n\nWelcome! Thanks for submitting our registration form.\n\nWe have successfully received your details.\n\nWe're glad to have you with us!\n\nBest regards,\nThe Automation Team ",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 2.1,
+      "position": [
+        208,
+        0
+      ],
+      "id": "cb57c5db-d82f-45a1-8dca-df90666fd5d0",
+      "name": "Send an Email",
+      "webhookId": "067c0260-6e74-46ad-ab24-389166f48403",
+      "credentials": {
+        "smtp": {
+          "id": "UaOAfd24kykvOtLm",
+          "name": "SMTP account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Send an Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "6c04d6b4-4816-4a3f-81f6-f064b6646738",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2222fe2de395f18e78f47c76ede92fdbc7e691a0592d5811ff7d540b19b979b9"
+  },
+  "id": "MUQQKOphLz3FDZ4J",
+  "tags": []
+}
