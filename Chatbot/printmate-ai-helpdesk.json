@@ -1,0 +1,139 @@
+{
+  "name": "PrintMate AI Helpdesk Chatbot",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {
+          "allowFileUploads": true
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        -224,
+        -16
+      ],
+      "id": "1e47236b-9b85-49b9-be65-b0cdabe781ef",
+      "name": "When chat message received",
+      "webhookId": "129af56c-9f1f-435d-8f63-12352e3ed426"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are the PrintMate AI Helpdesk Assistant.\n\nPrintMate is a proposed self-service printing kiosk.\n\nFeatures:\n- PDF document submission\n- Black-and-white and colour printing\n- Single-sided and duplex printing\n- Digital payments\n- A 6-digit OTP to release a print job\n\nYour responsibilities:\n1. Answer questions about PrintMate.\n2. Explain the proposed printing process step by step.\n3. Help users troubleshoot common printing problems.\n4. Use the Calculator tool when a calculation is useful.\n5. Remember relevant information from the current conversation.\n\nImportant rules:\n- You cannot access live orders, payments, printers, or OTPs.\n- Never claim that you checked a payment, printed a document, verified an OTP, or issued a refund.\n- Never invent prices, locations, or refund policies.\n- If a payment succeeds but printing fails, advise the user to keep their payment and order references and contact the appropriate support person.\n- Never ask for passwords, UPI PINs, card details, or OTPs.\n- If you don't know an answer, say so clearly.\n- Keep responses friendly, clear, and concise."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        0,
+        -16
+      ],
+      "id": "9dc8536f-81c1-458d-8bf3-e96de76f8528",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-3.5-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -144,
+        192
+      ],
+      "id": "d5740047-30b5-47ce-bbeb-7c7d72ba3500",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "Xl0HAAdmMX0LQ59O",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        256,
+        224
+      ],
+      "id": "763d8540-bd14-4c1b-82e1-a3ddfd4b0b24",
+      "name": "Calculator"
+    },
+    {
+      "parameters": {
+        "contextWindowLength": 6
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        48,
+        240
+      ],
+      "id": "ec735ae2-b38e-46b1-9b15-ebaf7c221822",
+      "name": "Simple Memory"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "de6bd629-aa0a-4074-a245-59051fc33cd5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "2222fe2de395f18e78f47c76ede92fdbc7e691a0592d5811ff7d540b19b979b9"
+  },
+  "id": "Ol6CHHnGGagc2YKx",
+  "tags": []
+}
